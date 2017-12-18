@@ -40,5 +40,8 @@ body {
       margin-left: 10px;
       font-size: 14px !important;
   }
+  .display {
+    display: none;
+  }
   
   

@@ -14,10 +14,7 @@ const Check = (props) => {
    </div>
    );
 }
-
-
-
-
+//The root Component
 class Form extends Component {
   render() {
     return (
@@ -25,10 +22,10 @@ class Form extends Component {
         <div className = "row main">
           <h3 className = "field heading"> Register Here <span className="error"> *Required Fields</span> </h3>
           <form className = "form" >
-              <Field name = {'fname'} label = {'First Name'} type = {'text'} class = {'form-control'} />
+              <Field name = {'fname'} label = {'First Name'} type = {'text'} class = {'form-control'} required = {'true'}/>
               <Field name = {'lname'} label = {'Last Name'} type = {'text'} class = {'form-control'} />
-              <Field name = {'email'} label = {'Email'} type = {'text'} class = {'form-control'} />
-              <Field name = {'phone'} label = {'Phone'} type = {'text'} class = {'form-control'} />
+              <Field name = {'email'} label = {'Email'} type = {'email'} class = {'form-control'}  />
+              <Field name = {'phone'} label = {'Phone'} type = {'number'} class = {'form-control'} />
               <Field name = {'dob'} label = {'DOB'} type = {'date'} class = {'form-control'} />
               <Check value = {'Done'} />
           </form>

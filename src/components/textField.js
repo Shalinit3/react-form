@@ -11,31 +11,56 @@ class Field extends Component {
         inputValue: '',
       }
     }
+
+     errHandle = (value, valid, type, required) => {
+      if(required && value.length <= 0) {
+        this.setState({
+          errMessage : "This is a required field" ,
+          errVisibility : true ,
+        });
+      }
+      else {
+        if(!valid){
+          this.setState({
+            errMessage : "Please enter a valid " + type ,
+            errVisibility : true ,
+            
+          });
+        }
+        else {
+          this.setState({
+          errMessage : null ,
+          errVisibility : false ,
+          });
+        }
+      }  
+    }
   
     onInputChange = (e) => {
-      if(e.target.name === 'fname'){
+      if(e.target.type === 'text'){
         this.setState({
-          fname: validate_name(e.target.value)
+          isValid: validate_name(e.target.value)
         });
       }
-      if(e.target.name === 'lname'){
+      else if(e.target.type === 'number'){
         this.setState({
-          inputValue: validate_name(e.target.value)
+          isValid: validate_phone(e.target.value)
         });
       }
-      if(e.target.name === 'phone'){
+      else if(e.target.type === 'email'){
         this.setState({
-          inputValue: validate_phone(e.target.value)
+          isValid: validate_email(e.target.value)
         });
       }
-      if(e.target.name === 'email'){
+      else {
         this.setState({
-          inputValue: validate_email(e.target.value)
+          isValid: true
         });
       }
-     
+      console.log(e.target.required); 
+      this.errHandle(e.target.value, this.state.isValid, e.target.type , e.target.required )  ; 
     } 
-  
+
     render(){
       return(
         <div className = "col-md-6 col-lg-6 col-sm-12 col-xs-12 block">
@@ -50,7 +75,7 @@ class Field extends Component {
                     onChange = {this.onInputChange} 
                     placeholder = {this.props.placeholder }
                     required = {this.props.required } />
-                 <span id = "err_fname" className = "error">{this.state.inputValue}</span>
+                 <span className = { this.state.errVisibility ?  "error" : "error display"  }>{this.state.errMessage}</span>
                </div>
              </div>
          </div>
