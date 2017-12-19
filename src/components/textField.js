@@ -8,67 +8,71 @@ class TextField extends Component {
 
     this.state = {
       inputValue: '',
-      value: ''
+      value: '',
+      isValid : true,
     }
   }
 
-  errHandle = (type, value) => {
-
-    // const { required } = this.props;
-    // if (required && value.length <= 0) {
-    //   this.setState({
-    //     errMessage: "This is a required field",
-    //     errVisibility: true,
-    //   });
-    // }
-
-    // else {
-    //   if (!valid) {
-    //     this.setState({
-    //       errMessage: "Please enter a valid " + name,
-    //       errVisibility: true,
-
-    //     });
-    //   } else {
-    //     this.setState({
-    //       errMessage: null,
-    //       errVisibility: false,
-    //     });
-    //   }
-    // }
-  }
-
-  onInputChange = (e) => {
-    console.log("inside text", e.target.value);
-
-
-    if(e.target.value.length >10) {
+  errHandle = (valid, value) => {
+    const { required } = this.props.required || false;
+    if (required && value.length <= 0) {
+      this.setState({
+        errMessage: "This is a required field",
+        errVisibility: true,
+        value: value,
+        inputValue: ''
+      });
+    } else if(value.length >10 && this.props.type === 'number' ) {
+      this.setState({
+        isValid: false,
+        errMessage: 'Phone number can be 10 digits only.',
+        errVisibility: true,
+        value: this.state.inputValue,
+      });
       return;
     }
-    this.setState({
-      value: e.target.value
-    })
-    // if (e.target.type === 'text') {
-    //   this.setState({
-    //     isValid: validate_name(e.target.value)
-    //   });
-    // }
-    // else if (e.target.name === 'number') {
-    //   this.setState({
-    //     isValid: validate_phone(e.target.value)
-    //   });
-    // }
-    // else if (e.target.type === 'email') {
-    //   this.setState({
-    //     isValid: validate_email(e.target.value)
-    //   });
-    // }
-    // else {
-    //   this.setState({
-    //     isValid: true
-    //   });
-    // }
-    // this.errHandle(e.target.type, e.target.value);
+     else if (!valid) {
+        this.setState({
+          errMessage: "Please enter a valid " + this.props.name,
+          errVisibility: true,
+          value: value,
+          inputValue: ''
+
+        });
+   } else {
+        this.setState({
+          errMessage: null,
+          errVisibility: false,
+          value: value,
+          inputValue: value
+        });
+      }
+    
+    console.log( this.state.inputValue ,valid );
+  }
+
+  onInputChange = (e) => { 
+    if (e.target.type === 'text') {
+      this.setState({
+        isValid: validate_name(e.target.value)
+      });
+    }
+    else if (e.target.type === 'number') {
+      this.setState({
+        isValid: validate_phone(e.target.value)
+      });
+    }
+    else if (e.target.type === 'email') {
+      this.setState({
+        isValid: validate_email(e.target.value)
+      });
+    }
+    else {
+      this.setState({
+        isValid: true
+      });
+    }
+    this.errHandle(this.state.isValid, e.target.value );
   }
 
   render() {

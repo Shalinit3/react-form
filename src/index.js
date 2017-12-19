@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
-import Field from './components/textField.js'
+import Field from './components/textField.js';
+import Radio from './components/radioButton.js';
 
 const Check = (props) => {
     return( <div className = "col-md-12 col-lg-12 col-sm-12 col-xs-12 block">
@@ -33,6 +34,10 @@ class Form extends Component {
                 placeholder = {'Enter your phone number'}   />
               <Field name = {'dob'} label = {'DOB'} type = {'date'} class = {'form-control'} />
               <Check value = {'Done'} />
+              <Radio type = {'radio'} label = {'Gender'} name = {'gender'}
+                inputs = {[{value: 'male', label: 'Male', class: 'gender', labelClass : 'field', id: 'male' }, 
+                           {value: 'female', label: 'Female', class: 'gender', labelClass : 'field', id: 'female' }, 
+                           {value: 'other', label: 'Other', class: 'gender', labelClass : 'field', id: 'other' }]}/> 
           </form>
         </div>
       </div>
