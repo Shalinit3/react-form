@@ -48,7 +48,7 @@ class TextField extends Component {
         });
       }
     
-    console.log( this.state.inputValue ,valid );
+    //console.log( this.state.inputValue ,valid );
   }
 
   onInputChange = (e) => { 

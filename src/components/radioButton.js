@@ -20,19 +20,29 @@ const Input = (props) => {
 
 
 export default class Radio extends Component {
- 
+    constructor() {
+        super();
+        this.state = {
+          value: '',
+        };
+      }
     handleOnChange = (e) => {
-        console.log(e.target.value);
+        this.setState({
+            value: e.target.checked,
+        });
+        console.log(e.target.checked);
     }
 
  render() {
      const inputs = [];
         this.props.inputs.forEach( (value, index ) => {
-            inputs.push( <Input name = {this.props.name} class = {this.props.inputs[index].class} 
-            value = {this.props.inputs[index].value} id = {this.props.inputs[index].id} 
-            onChange = { this.handleOnChange }/>   );
-            inputs.push ( <Label class = {this.props.inputs[index].labelClass} 
-                                name = {this.props.inputs[index].label} for = { this.props.inputs[index].id} /> );
+
+            inputs.push( <Input key = {this.props.inputs[index].value} name = {this.props.name} 
+                         class = {this.props.inputs[index].class} value = {this.props.inputs[index].value}
+                         id = {this.props.inputs[index].id }
+                         />   );
+            inputs.push ( <Label key = {this.props.inputs[index].label} class = {this.props.inputs[index].labelClass} 
+                                name = {this.props.inputs[index].label} for = {this.props.inputs[index].id} /> );
 
         });
     return (

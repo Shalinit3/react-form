@@ -4,6 +4,8 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import Field from './components/textField.js';
 import Radio from './components/radioButton.js';
+import Select from './components/selectButton.js';
+
 
 const Check = (props) => {
     return( <div className = "col-md-12 col-lg-12 col-sm-12 col-xs-12 block">
@@ -33,11 +35,20 @@ class Form extends Component {
               <Field name = {'phone'} label = {'Phone'} type = {'number'} class = {'form-control'} 
                 placeholder = {'Enter your phone number'}   />
               <Field name = {'dob'} label = {'DOB'} type = {'date'} class = {'form-control'} />
-              <Check value = {'Done'} />
               <Radio type = {'radio'} label = {'Gender'} name = {'gender'}
-                inputs = {[{value: 'male', label: 'Male', class: 'gender', labelClass : 'field', id: 'male' }, 
+                inputs = {[{value: 'male', label: 'Male', class: 'gender', labelClass : 'field', id: 'male'}, 
                            {value: 'female', label: 'Female', class: 'gender', labelClass : 'field', id: 'female' }, 
                            {value: 'other', label: 'Other', class: 'gender', labelClass : 'field', id: 'other' }]}/> 
+              <Select class = {'form-control'} label = {'State'} name = {'state'}
+                inputs = {[{value: 'Andhra Pradesh', label: 'Andhra Pradesh', }, 
+                           {value: 'Goa', label: 'Goa' },  {value: 'Gujarat', label: 'Gujarat' }, 
+                           {value: 'Uttar Pradesh', label: 'Uttar Pradesh' }]}/>          
+             <Select class = {'form-control'} label = {'Country'} name = {'country'}
+                inputs = {[{value: 'India', label: 'India', }, 
+                           {value: 'China', label: 'China' },  {value: 'Nepal', label: 'Nepal' }, 
+                           {value: 'Bhutan', label: 'Bhutan' }]}/> 
+            <Check value = {'Done'} />
+              
           </form>
         </div>
       </div>
