@@ -14,7 +14,7 @@ export const validate_name = function (name){
 //function to validate email field
 export const validate_email = function (email){
     //regular expression for email taking format abc@gmail.com
-    var reg = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+    var reg = /^([a-zA-Z0-9_]+)@([a-zA-Z0-9_]+)([a-zA-Z]{2,5})$/;
     if(!reg.test(email)){
         return false;
     }

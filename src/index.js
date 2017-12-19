@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import Field from './components/textField.js';
 import Radio from './components/radioButton.js';
 import Select from './components/selectButton.js';
+import Checkbox from './components/checkBox.js';
+
 
 
 const Check = (props) => {
@@ -35,7 +37,7 @@ class Form extends Component {
               <Field name = {'phone'} label = {'Phone'} type = {'number'} class = {'form-control'} 
                 placeholder = {'Enter your phone number'}   />
               <Field name = {'dob'} label = {'DOB'} type = {'date'} class = {'form-control'} />
-              <Radio type = {'radio'} label = {'Gender'} name = {'gender'}
+              <Radio label = {'Gender'} name = {'gender'}
                 inputs = {[{value: 'male', label: 'Male', class: 'gender', labelClass : 'field', id: 'male'}, 
                            {value: 'female', label: 'Female', class: 'gender', labelClass : 'field', id: 'female' }, 
                            {value: 'other', label: 'Other', class: 'gender', labelClass : 'field', id: 'other' }]}/> 
@@ -47,7 +49,13 @@ class Form extends Component {
                 inputs = {[{value: 'India', label: 'India', }, 
                            {value: 'China', label: 'China' },  {value: 'Nepal', label: 'Nepal' }, 
                            {value: 'Bhutan', label: 'Bhutan' }]}/> 
-            <Check value = {'Done'} />
+             <Checkbox  label = {'Apply For'} name = {'docs'}
+                inputs = {[{value: 'pan', label: 'PAN', class: 'check', labelClass : 'field', id: 'pan'}, 
+                           {value: 'aadhaar', label: 'Aadhaar', class: 'check', labelClass : 'field', id: 'aadhar' }, 
+                           {value: 'passport', label: 'Passport', class: 'check', labelClass : 'field', id: 'passport' }]}/>  
+            <Checkbox  name = {'status'}
+                inputs = {[{value: 'check', label: 'I Agree to the Terms & Conditions', class: 'check', labelClass : 'field', id: 'status'}]}/>                            
+              <Check value = {'Done'} />
               
           </form>
         </div>
