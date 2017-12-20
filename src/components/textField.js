@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import '../index.css';
 import { validate_email, validate_phone, validate_name } from "../validate.js";
+import Error from "./errorMessage.js";
+
 
 class TextField extends Component {
   constructor() {
     super();
-
     this.state = {
       inputValue: '',
       value: '',
-      isValid : true,
+      isValid: false,
+      errMessage: '',
+      errVisibility: ''
     }
   }
 
   errHandle = (valid, value) => {
-    const { required } = this.props.required || false;
-    if (required && value.length <= 0) {
+
+    const required = this.props.required;
+    if (required && !value.length) {
       this.setState({
         errMessage: "This is a required field",
         errVisibility: true,
         value: value,
-        inputValue: ''
+        inputValue: '',
+        isValid: false,
+
       });
-    } else if(value.length >10 && this.props.type === 'number' ) {
+    } else if (value.length > 10 && this.props.type === 'number') {
       this.setState({
         isValid: false,
         errMessage: 'Phone number can be 10 digits only.',
@@ -31,48 +38,43 @@ class TextField extends Component {
       });
       return;
     }
-     else if (!valid) {
-        this.setState({
-          errMessage: "Please enter a valid " + this.props.name,
-          errVisibility: true,
-          value: value,
-          inputValue: ''
-
-        });
-   } else {
-        this.setState({
-          errMessage: null,
-          errVisibility: false,
-          value: value,
-          inputValue: value
-        });
-      }
-    
-    //console.log( this.state.inputValue ,valid );
+    else if (!valid) {
+      this.setState({
+        errMessage: "Please enter a valid " + this.props.name,
+        errVisibility: true,
+        value: value,
+        inputValue: '',
+        isValid: false,
+      });
+    } else {
+      this.setState({
+        errMessage: null,
+        errVisibility: false,
+        value: value,
+        inputValue: value,
+        isValid: true,
+      });
+    }
   }
 
-  onInputChange = (e) => { 
+  onInputChange = (e) => {
+    let isValid = false;
     if (e.target.type === 'text') {
-      this.setState({
-        isValid: validate_name(e.target.value)
-      });
+      isValid = validate_name(e.target.value)
     }
     else if (e.target.type === 'number') {
-      this.setState({
-        isValid: validate_phone(e.target.value)
-      });
+      isValid = validate_phone(e.target.value);
     }
     else if (e.target.type === 'email') {
-      this.setState({
-        isValid: validate_email(e.target.value)
-      });
+      isValid = validate_email(e.target.value);
+    }
+    else if (e.target.type === 'date') {
+      isValid = true;
     }
     else {
-      this.setState({
-        isValid: true
-      });
+      isValid = true
     }
-    this.errHandle(this.state.isValid, e.target.value );
+    this.errHandle(isValid, e.target.value);
   }
 
   render() {
@@ -92,12 +94,20 @@ class TextField extends Component {
               required={this.props.required}
               value={this.state.value}
             />
-            <span className={this.state.errVisibility ? "error" : "error display"}>{this.state.errMessage}</span>
+            <Error errVisibility={this.state.errVisibility} errMessage={this.state.errMessage} />
           </div>
         </div>
       </div>
     );
   }
 }
+
+TextField.propTypes = {
+  name: PropTypes.string,
+  required: PropTypes.bool,
+};
+TextField.defaultProps = {
+  required: false,
+};
 
 export default TextField;

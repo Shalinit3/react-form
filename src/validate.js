@@ -2,7 +2,7 @@
 export const validate_name = function (name){
     /* regular expression for name accepting only names beginning 
     with an alphabet and not containing special character */
-    var reg=/^[a-zA-Z]([._-]?[a-zA-Z0-9]+)*$/;
+    var reg=/^[a-zA-Z\s]+$/;
     if(!reg.test(name)){
        return false;
     }
@@ -14,7 +14,7 @@ export const validate_name = function (name){
 //function to validate email field
 export const validate_email = function (email){
     //regular expression for email taking format abc@gmail.com
-    var reg = /^([a-zA-Z0-9_]+)@([a-zA-Z0-9_]+)([a-zA-Z]{2,5})$/;
+    var reg = /^([a-zA-Z0-9_]+)@([a-zA-Z0-9_]+)\.([a-zA-Z]{2,5})$/;
     if(!reg.test(email)){
         return false;
     }
