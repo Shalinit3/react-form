@@ -6,17 +6,37 @@ import Error from "./errorMessage.js";
 
 
 class TextField extends Component {
+  //Constructor to set the initial state
   constructor() {
     super();
     this.state = {
       inputValue: '',
       value: '',
-      isValid: false,
+      isValid: true,
       errMessage: '',
       errVisibility: ''
     }
   }
 
+  componentWillMount() {
+    if (this.props.required && !this.props.value) {
+      this.setState({
+        isValid: false,
+      });
+    }
+  }
+
+  // Function called when form is submitted without being filled
+  focus = () => {
+    this.inputField.focus();
+    this.setState({
+      errMessage: "This is a required field",
+      errVisibility: true,
+    });
+  }
+
+
+  //function that handles the error and error message
   errHandle = (valid, value) => {
 
     const required = this.props.required;
@@ -57,6 +77,7 @@ class TextField extends Component {
     }
   }
 
+  // Function to be called in case of change and blur event
   onInputChange = (e) => {
     let isValid = false;
     if (e.target.type === 'text') {
@@ -82,7 +103,9 @@ class TextField extends Component {
       <div className="col-md-6 col-lg-6 col-sm-12 col-xs-12 block">
         <div className="form-group">
           <label className="field control-label col-sm-12" >{this.props.label}
-            <span className="error">*</span> </label>
+            <span className={(this.props.required) ? "error" : "display"}>*</span>
+            <Error errVisibility={this.state.errVisibility} errMessage={this.state.errMessage} />
+          </label>
           <div className="col-sm-10">
             <input
               type={this.props.type}
@@ -93,8 +116,8 @@ class TextField extends Component {
               placeholder={this.props.placeholder}
               required={this.props.required}
               value={this.state.value}
+              ref={(input) => { this.inputField = input; }}
             />
-            <Error errVisibility={this.state.errVisibility} errMessage={this.state.errMessage} />
           </div>
         </div>
       </div>

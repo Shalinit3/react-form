@@ -8,17 +8,21 @@ const Label = (props) => {
         <label className={props.class} htmlFor={props.for} > {props.name} </label>
     );
 }
-const Input = (props) => {
-    return (
-        <input
-            type='checkbox'
-            className={props.class}
-            name={props.name}
-            value={props.value}
-            id={props.id}
-            onChange={props.onChange}
-        />
-    );
+class Input extends Component {
+    render() {
+        return (
+            <input
+                type='checkbox'
+                className={this.props.class}
+                name={this.props.name}
+                value={this.props.value}
+                id={this.props.id}
+                onChange={this.props.onChange}
+                ref={this.props.ref}
+            />
+        );
+    }
+
 }
 
 
@@ -27,11 +31,27 @@ export default class Checkbox extends Component {
         super();
         this.state = {
             value: [],
-            isValid: false,
+            isValid: true,
             errMessage: '',
             errVisibility: ''
         };
     }
+
+    componentWillMount() {
+        if (this.props.required && !this.props.value) {
+            this.setState({
+                isValid: false,
+            });
+        }
+    }
+
+    focus = () => {
+        this.setState({
+            errMessage: "This is a required field",
+            errVisibility: true,
+        });
+    }
+
     handleOnChange = (e) => {
         const arr = this.state.value;
         if (e.target.checked) {
@@ -86,7 +106,7 @@ export default class Checkbox extends Component {
             <div className="col-md-6 col-lg-6 col-sm-12 col-xs-12 block">
                 <div className="form-group">
                     <label className="field control-label col-sm-12" >{this.props.label}
-                        <span className="error">*</span> </label>
+                        <span className={(this.props.required) ? "error" : "display"}>*</span> </label>
                     <div className="col-sm-10">
                         {inputs}
                         <Error errVisibility={this.state.errVisibility} errMessage={this.state.errMessage} />

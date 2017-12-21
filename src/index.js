@@ -22,13 +22,38 @@ const Check = (props) => {
 
 //The root Component
 class Form extends Component {
-
   formSubmit = (e) => {
     e.preventDefault();
+
     if (this.gender.state.isValid && this.name.state.isValid && this.email.state.isValid && this.phone.state.isValid
       && this.dob.state.isValid && this.docs.state.isValid && this.terms.state.isValid) {
       console.log("form can be submitted");
+    } 
+    else {
+      if(!this.name.state.isValid) {
+        this.name.focus();
+      }
+      else if(!this.email.state.isValid) {
+        this.email.focus();
+      }
+      else if(!this.phone.state.isValid) {
+        this.phone.focus();
+      }
+      else if(!this.dob.state.isValid) {
+        this.dob.focus();
+      }
+      else if(!this.gender.state.isValid) {
+        this.gender.focus();
+      }
+      else if(!this.docs.state.isValid) {
+        this.docs.focus();
+      }
+      else if(!this.terms.state.isValid) {
+        this.terms.focus();
+      }
+     
     }
+
   }
 
   render() {
@@ -38,13 +63,13 @@ class Form extends Component {
           <h3 className="field heading"> Register Here <span className="error"> *Required Fields</span> </h3>
           <form >
             <Field ref={(input) => { this.name = input; }} name={'name'} label={'Name'} type={'text'} class={'form-control'}
-              required={true} placeholder={'Enter your name'} />
+               placeholder={'Enter your name'} />
             <Field ref={(input) => { this.email = input; }} name={'email'} label={'Email'} type={'email'} required={true} class={'form-control'}
               placeholder={'Enter your email id'} />
             <Field ref={(input) => { this.phone = input; }} name={'phone'} label={'Phone'} type={'number'} required={true} class={'form-control'}
               placeholder={'Enter your phone number'} />
             <Field ref={(input) => { this.dob = input; }} name={'dob'} label={'DOB'} type={'date'} class={'form-control'} />
-            <Radio label={'Gender'} name={'gender'} ref={(input) => { this.gender = input; }}
+            <Radio label={'Gender'} required={true} name={'gender'} ref={(input) => { this.gender = input; }}
               inputs={[{ value: 'male', label: 'Male', class: 'gender', labelClass: 'field', id: 'male' },
               { value: 'female', label: 'Female', class: 'gender', labelClass: 'field', id: 'female' },
               { value: 'other', label: 'Other', class: 'gender', labelClass: 'field', id: 'other' }]} />
@@ -60,7 +85,7 @@ class Form extends Component {
               inputs={[{ value: 'pan', label: 'PAN', class: 'check', labelClass: 'field', id: 'pan' },
               { value: 'aadhaar', label: 'Aadhaar', class: 'check', labelClass: 'field', id: 'aadhar' },
               { value: 'passport', label: 'Passport', class: 'check', labelClass: 'field', id: 'passport' }]} />
-            <Checkbox name={'terms'} ref={(input) => { this.terms = input; }}
+            <Checkbox name={'terms'} ref={(input) => { this.terms = input; }} required={true}
               inputs={[{ value: 'check', label: 'I Agree to the Terms & Conditions', class: 'check', labelClass: 'field', id: 'status' }]} />
             <Check value={'true'} onSubmit={this.formSubmit} />
           </form>
