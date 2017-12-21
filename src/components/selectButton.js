@@ -20,6 +20,8 @@ export default class Select extends Component {
           value: '',
         };
       }
+
+    // Function to be called in case of change and blur event
     handleOnChange = (e) => {
         this.setState({
             value: e.target.value,

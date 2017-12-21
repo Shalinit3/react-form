@@ -1,29 +1,9 @@
 import React, { Component } from 'react';
-import '../index.css';
+import '../../index.css';
 import PropTypes from 'prop-types';
-import Error from "./errorMessage.js";
-
-
-const Label = (props) => {
-    return (
-        <label className={props.class} htmlFor={props.for} > {props.name} </label>
-    );
-}
-class Input extends Component {
-    render() {
-        return (
-            <input
-                type='radio'
-                className={this.props.class}
-                name={this.props.name}
-                value={this.props.value}
-                id={this.props.id}
-                onChange={this.props.onChange}
-            />
-        );
-    }
-}
-
+import Error from "../errorMessage.js";
+import Label from "../checkboxInput/components/label.js";
+import InputField from "./components/inputField.js";
 
 export default class Radio extends Component {
     constructor() {
@@ -63,10 +43,11 @@ export default class Radio extends Component {
 
     renderInputs = () => {
         const { inputs } = this.props;
+        //function to insert input and label as child component
         return inputs.map((value, index) => {
             return (
                 <div key={this.props.inputs[index].value}>
-                    <Input
+                    <InputField
                         name={this.props.name}
                         class={this.props.inputs[index].class}
                         value={this.props.inputs[index].value}
@@ -92,8 +73,7 @@ export default class Radio extends Component {
                         <span className={(this.props.required) ? "error" : "display"}>*</span> 
                         <Error errVisibility={this.state.errVisibility} errMessage={this.state.errMessage} /></label>
                     <div className="col-sm-10">
-                        {this.renderInputs()}
-                        
+                        {this.renderInputs()}                        
                     </div>
                 </div>
             </div>
@@ -102,8 +82,10 @@ export default class Radio extends Component {
 }
 Radio.propTypes = {
     inputs: PropTypes.array,
+    label : PropTypes.required,
 };
 Radio.defaultProps = {
     required: false,
+    label : '',
 };
 

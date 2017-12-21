@@ -29,10 +29,7 @@ class TextField extends Component {
   // Function called when form is submitted without being filled
   focus = () => {
     this.inputField.focus();
-    this.setState({
-      errMessage: "This is a required field",
-      errVisibility: true,
-    });
+    this.onInputChange();
   }
 
 
@@ -44,8 +41,6 @@ class TextField extends Component {
       this.setState({
         errMessage: "This is a required field",
         errVisibility: true,
-        value: value,
-        inputValue: '',
         isValid: false,
 
       });
@@ -63,7 +58,6 @@ class TextField extends Component {
         errMessage: "Please enter a valid " + this.props.name,
         errVisibility: true,
         value: value,
-        inputValue: '',
         isValid: false,
       });
     } else {
@@ -71,7 +65,6 @@ class TextField extends Component {
         errMessage: null,
         errVisibility: false,
         value: value,
-        inputValue: value,
         isValid: true,
       });
     }
@@ -79,23 +72,25 @@ class TextField extends Component {
 
   // Function to be called in case of change and blur event
   onInputChange = (e) => {
+    const { type } = this.props;
     let isValid = false;
-    if (e.target.type === 'text') {
-      isValid = validate_name(e.target.value)
+    console.log(this.inputField.value);
+    if (type === 'text') {
+      isValid = validate_name(this.inputField.value)
     }
-    else if (e.target.type === 'number') {
-      isValid = validate_phone(e.target.value);
+    else if (type === 'number') {
+      isValid = validate_phone(this.inputField.value);
     }
-    else if (e.target.type === 'email') {
-      isValid = validate_email(e.target.value);
+    else if (type === 'email') {
+      isValid = validate_email(this.inputField.value);
     }
-    else if (e.target.type === 'date') {
+    else if (type === 'date') {
       isValid = true;
     }
     else {
       isValid = true
     }
-    this.errHandle(isValid, e.target.value);
+    this.errHandle(isValid, this.inputField.value);
   }
 
   render() {
@@ -127,6 +122,7 @@ class TextField extends Component {
 
 TextField.propTypes = {
   name: PropTypes.string,
+  class : PropTypes.string,
   required: PropTypes.bool,
 };
 TextField.defaultProps = {

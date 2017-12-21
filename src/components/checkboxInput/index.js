@@ -1,30 +1,8 @@
 import React, { Component } from 'react';
-import '../index.css';
-import Error from "./errorMessage.js";
-
-
-const Label = (props) => {
-    return (
-        <label className={props.class} htmlFor={props.for} > {props.name} </label>
-    );
-}
-class Input extends Component {
-    render() {
-        return (
-            <input
-                type='checkbox'
-                className={this.props.class}
-                name={this.props.name}
-                value={this.props.value}
-                id={this.props.id}
-                onChange={this.props.onChange}
-                ref={this.props.ref}
-            />
-        );
-    }
-
-}
-
+import '../../index.css';
+import Error from "../errorMessage.js";
+import InputField from "./components/inputField.js";
+import Label from "./components/label.js"
 
 export default class Checkbox extends Component {
     constructor() {
@@ -87,7 +65,7 @@ export default class Checkbox extends Component {
         const inputs = [];
         this.props.inputs.forEach((value, index) => {
 
-            inputs.push(<Input key={this.props.inputs[index].value}
+            inputs.push(<InputField key={this.props.inputs[index].value}
                 name={this.props.name}
                 class={this.props.inputs[index].class}
                 value={this.props.inputs[index].value}
@@ -117,7 +95,12 @@ export default class Checkbox extends Component {
     }
 }
 
+Checkbox.propTypes = {
+    inputs: PropTypes.array,
+    label : PropTypes.required,
+};
+
+
 Checkbox.defaultProps = {
     required: false,
 };
-
