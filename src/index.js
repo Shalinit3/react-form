@@ -27,7 +27,7 @@ class Form extends Component {
 
     if (this.gender.state.isValid && this.name.state.isValid && this.email.state.isValid && this.phone.state.isValid
       && this.dob.state.isValid && this.docs.state.isValid && this.terms.state.isValid) {
-      console.log("form can be submitted");
+     return true;
     } 
     else {
       if(!this.name.state.isValid) {
@@ -51,7 +51,7 @@ class Form extends Component {
       else if(!this.terms.state.isValid) {
         this.terms.focus();
       }
-     
+     return false;
     }
 
   }
