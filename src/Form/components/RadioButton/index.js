@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import '../../index.css';
 import PropTypes from 'prop-types';
-import Error from "../errorMessage.js";
-import Label from "../checkboxInput/components/label.js";
-import InputField from "./components/inputField.js";
+import Error from "../ErrorMessage";
+import Label from "../CheckboxInput/components/label";
+import InputField from "./components/inputField";
 
 export default class Radio extends Component {
     constructor() {
@@ -82,7 +81,7 @@ export default class Radio extends Component {
 }
 Radio.propTypes = {
     inputs: PropTypes.array,
-    label : PropTypes.required,
+    label : PropTypes.string,
 };
 Radio.defaultProps = {
     required: false,
